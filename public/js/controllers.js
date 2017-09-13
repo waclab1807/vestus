@@ -10,7 +10,6 @@ vestus.controller('ClientController', ['$scope', 'Clients', function ($scope, Cl
   $scope.today = new Date;
 
   $scope.save = function(){
-    console.log($scope.newClient.birthDate);
     if(!$scope.newClient || $scope.newClient.length < 1) return;
     var client = new Clients({ name: $scope.newClient.name, lastName: $scope.newClient.lastName, note: $scope.newClient.note, birthDate: $scope.newClient.birthDate, address: $scope.newClient.address, phone: $scope.newClient.phone });
 
