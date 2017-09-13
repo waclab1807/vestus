@@ -16,7 +16,9 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 // connect to MongoDB
-mongoose.connect('mongodb://localhost/clients-api')
+
+//mongoose.connect('mongodb://localhost/clients-api')
+mongoose.connect('mongodb://waclab1807:qwerty12345@ds135384.mlab.com:35384/clients-api')
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
