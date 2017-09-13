@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1 class="text-center well title-bar"><img src="http://www.myiconfinder.com/uploads/iconsets/256-256-b910484213ee753c725545d86998d296-business.png" width="150px" alt=""><img src="http://www.vestus.pl/templates/default/img/logo.jpg" alt=""></h1>
+<div class="page-bg">
+</div>
+    <ng-view></ng-view>
+
+     <!-- Template -->
+    <script type="text/ng-template" id="/clients.html">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="content">
+          <h1 class="text-center">Klienci <img src="http://www.transtech.net.au/wp-content/themes/transtech/images/customers.png" width="80px" class="icons" alt=""></h1>
+          <input type="text" ng-model="search.lastName" class="form-control" placeholder="Szukaj..."><br>
+          <ul style="list-style: none; padding-left: 0">
+            <li ng-repeat="client in clients | filter: search" class="well" style="list-style: none; padding-left: 0">
+              <a ng-show="!editing[$index]" href="#/{{client._id}}">{{client.name}} {{client.lastName}}</a>
+              <div class="well" ng-show="editing[$index]">
+                <input ng-show="editing[$index]" type="text" ng-model="client.name" placeholder="Imię" class="form-control"><br ng-show="editing[$index]">
+                <input ng-show="editing[$index]" type="text" ng-model="client.lastName" placeholder="Nazwisko" class="form-control"><br ng-show="editing[$index]">
+                <input ng-show="editing[$index]" type="text" ng-model="client.note" placeholder="Notatka" class="form-control"><br ng-show="editing[$index]">
+                <input ng-show="editing[$index]" type="date" ng-model="client.birthDate" placeholder="Data urodzenia" class="form-control"><br ng-show="editing[$index]">
+                <input ng-show="editing[$index]" type="text" ng-model="client.address" placeholder="Adres" class="form-control"><br ng-show="editing[$index]">
+                <input ng-show="editing[$index]" type="number" ng-model="client.phone" placeholder="Telefon" class="form-control"><br ng-show="editing[$index]">
+
+                <button ng-show="editing[$index]" ng-click="update($index)" class="btn btn-success">Aktualizuj</button>
+                <button ng-show="editing[$index]" ng-click="cancel($index)" class="btn btn-warning">Anuluj</button>
+              </div>
+              <div style="display: inline; float: right;">
+                <button ng-show="!editing[$index]" ng-click="remove($index)" class="btn btn-danger">Usuń</button>
+                <button ng-show="!editing[$index]" ng-click="edit($index)" class="btn btn-primary">Edytuj</button>
+              </div>
+              <br><br><br>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="content">
+          <h1 class="text-center">Dodaj nowego klienta <img src="https://lh3.ggpht.com/VktcACh_TxNGR7HmTVYVHxayIwwp57TydpeE0Y3KGE4X1Qpk2CrXOyf3K_uGBeB7S8U=w300" class="icons" width="80px" alt=""></h1>
+          <input type="text" ng-model="newClient.name" class="form-control" placeholder="Imię"><br>
+          <input type="text" ng-model="newClient.lastName" class="form-control" placeholder="Nazwisko"><br>
+          <input type="text" ng-model="newClient.note" class="form-control" placeholder="Notatka"><br>
+          <input type="date" ng-model="newClient.birthDate" class="form-control" placeholder="Data urodzenia"><br>
+          <input type="text" ng-model="newClient.address" class="form-control" placeholder="Adres"><br>
+          <input type="number" ng-model="newClient.phone" class="form-control" placeholder="Telefon"><br>
+          <div class="text-center">
+            <button ng-click="save()" class="btn btn-success">Dodaj użytkownika</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="content">
+          <h1 class="text-center">Solenizanci <img src="https://image.flaticon.com/icons/png/512/233/233881.png" class="icons" width="80px" alt=""></h1>
+          <ul style="list-style-type: none; padding-left: 0;">
+            <li ng-repeat="client in clients | filter: search" ng-if="(client.birthDate | date: 'dd.MM') === (today | date: 'dd.MM')" class="well">
+            <div class="text-center">
+              <a class="text-center" href="#/{{client._id}}">{{client.name}} {{client.lastName}}</a>
+            </div>
+              <span>Telefon: <strong>{{client.phone}}</strong></span><br><br>
+              <span ng-if="client.note">Dodatkowe info: {{client.note}}</span>
+            </li>
+          </ul>
+        <div>
+      </div>
+    </div>
+    </script>
+
+    <script type="text/ng-template" id="/clientDetails.html">
+      <div class="well">
+        <h1>{{ client.name }} {{ client.lastName }}</h1>
+
+      Data urodzenia: <strong>{{client.birthDate | date}}</strong><br><br>
+      Adres: <strong>{{client.address}}</strong><br><br>
+      Telefon: <strong>{{client.phone}}</strong><br><br>
+      Notatka: <strong>{{client.note}}</strong><br><br>
+
+      <a href="/" class="btn btn-info">Wróć</a>
+      </div>
+    </script>
+
+    <!-- Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+    <script src="/components/jquery/dist/jquery.min.js"></script>
+    <script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/components/angular-i18n/angular-locale_pl-pl.js"></script>
+
+    <script src='./js/controllers.js'></script>
+    <script src='./js/config.js'></script>
+    <script src='./js/services.js'></script>
+  </body>
+</html>
