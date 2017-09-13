@@ -17,11 +17,11 @@
       <div class="col-lg-4">
         <div class="content">
           <h1 class="text-center">Klienci <img src="http://www.transtech.net.au/wp-content/themes/transtech/images/customers.png" width="80px" class="icons" alt=""></h1>
-          <input type="text" ng-model="search.lastName" class="form-control" placeholder="Szukaj..."><br>
+          <input type="text" ng-model="search.lastName" class="form-control" placeholder="Szukaj nazwiska..."><br>
           <ul style="list-style: none; padding-left: 0">
             <li ng-repeat="client in clients | filter: search" class="well" style="list-style: none; padding-left: 0">
               <a ng-show="!editing[$index]" href="#/{{client._id}}">{{client.name}} {{client.lastName}}</a>
-              <div class="well" ng-show="editing[$index]">
+              <div ng-show="editing[$index]">
                 <input ng-show="editing[$index]" type="text" ng-model="client.name" placeholder="Imię" class="form-control"><br ng-show="editing[$index]">
                 <input ng-show="editing[$index]" type="text" ng-model="client.lastName" placeholder="Nazwisko" class="form-control"><br ng-show="editing[$index]">
                 <input ng-show="editing[$index]" type="text" ng-model="client.note" placeholder="Notatka" class="form-control"><br ng-show="editing[$index]">
@@ -79,7 +79,7 @@
       Data urodzenia: <strong>{{client.birthDate | date}}</strong><br><br>
       Adres: <strong>{{client.address}}</strong><br><br>
       Telefon: <strong>{{client.phone}}</strong><br><br>
-      Notatka: <strong>{{client.note}}</strong><br><br>
+      <div ng-if="client.note">Notatka: <strong>{{client.note}}</strong></div><br><br>
 
       <a href="/" class="btn btn-info">Wróć</a>
       </div>
