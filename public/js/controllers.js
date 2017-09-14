@@ -4,10 +4,11 @@ var vestus = angular.module('app', ['ngRoute', 'ngResource']);
 // Controllers
 //---------------
 
-vestus.controller('ClientController', ['$scope', 'Clients', function ($scope, Clients) {
+vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function ($scope, Clients, $filter) {
   $scope.editing = [];
   $scope.clients = Clients.query();
   $scope.today = new Date;
+  $scope.cities = ["Nowy Sącz", "Stalowa Wola", "Łódź"];
 
   $scope.search = function(item) {
     if (!$scope.query || (item.name.toLowerCase().indexOf($scope.query.toLowerCase()) != -1) || (item.lastName.toLowerCase().indexOf($scope.query.toLowerCase()) != -1) ){
@@ -26,7 +27,8 @@ vestus.controller('ClientController', ['$scope', 'Clients', function ($scope, Cl
       address: $scope.newClient.address, 
       phone: $scope.newClient.phone,
       email: $scope.newClient.email,
-      registerDate: $scope.today
+      registerDate: $scope.today,
+      city: $scope.newClient.city
     });
 
     client.$save(function(){
@@ -35,25 +37,25 @@ vestus.controller('ClientController', ['$scope', 'Clients', function ($scope, Cl
     });
   }
 
-  $scope.update = function(index){
-    var client = $scope.clients[index];
-    Clients.update({id: client._id}, client);
-    $scope.editing[index] = false;
+  $scope.update = function(client){
+    Clients.update({id: client._id}, $scope.editing[client._id]);
+    $scope.editing[client._id] = null;
   }
 
-  $scope.edit = function(index){
-    $scope.editing[index] = angular.copy($scope.clients[index]);
+  $scope.edit = function(client){
+    console.log(client);
+    $scope.editing[client._id] = client;
   }
 
-  $scope.cancel = function(index){
-    $scope.clients[index] = angular.copy($scope.editing[index]);
-    $scope.editing[index] = false;
+  $scope.cancel = function(client){
+    $scope.editing[client._id] = null;
   }
 
-  $scope.remove = function(index){
-    var client = $scope.clients[index];
+  $scope.remove = function(client){
     Clients.remove({id: client._id}, function(){
-      $scope.clients.splice(index, 1);
+      $scope.clients = $scope.clients.filter((elem) => {
+          return elem._id != client._id
+      });
     });
   }
 }]);

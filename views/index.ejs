@@ -16,26 +16,30 @@
     <div class="row">
       <div class="col-lg-4">
         <div class="content">
+
           <h1 class="text-center">Klienci <img src="http://www.transtech.net.au/wp-content/themes/transtech/images/customers.png" width="80px" class="icons" alt=""></h1>
           <input type="text" ng-model="query" class="form-control" placeholder="Szukaj nazwiska..."><br>
           <ul style="list-style: none; padding-left: 0">
             <li ng-repeat="client in clients | filter: search | orderBy:'lastName'" class="well" style="list-style: none; padding-left: 0">
-              <a ng-show="!editing[$index]" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a>
-              <div ng-show="editing[$index]">
-                <input ng-show="editing[$index]" type="text" ng-model="client.name" placeholder="Imię" class="form-control"><br ng-show="editing[$index]">
-                <input ng-show="editing[$index]" type="text" ng-model="client.lastName" placeholder="Nazwisko" class="form-control"><br ng-show="editing[$index]">
-                <input ng-show="editing[$index]" type="text" ng-model="client.note" placeholder="Notatka" class="form-control"><br ng-show="editing[$index]">
-                <input ng-show="editing[$index]" type="date" ng-model="client.birthDate" placeholder="Data urodzenia" class="form-control"><br ng-show="editing[$index]">
-                <input ng-show="editing[$index]" type="text" ng-model="client.address" placeholder="Adres" class="form-control"><br ng-show="editing[$index]">
-                <input ng-show="editing[$index]" type="number" ng-model="client.phone" placeholder="Telefon" class="form-control"><br ng-show="editing[$index]">
-                <input ng-show="editing[$index]" type="text" ng-model="client.email" placeholder="Email" class="form-control"><br ng-show="editing[$index]">
+              <a ng-show="!editing[client._id]" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a>
+              <div ng-show="editing[client._id]">
+                <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].name" placeholder="Imię" class="form-control"><br ng-show="editing[client._id]">
+                <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].lastName" placeholder="Nazwisko" class="form-control"><br ng-show="editing[client._id]">
+                <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].note" placeholder="Notatka" class="form-control"><br ng-show="editing[client._id]">
+                <input ng-show="editing[client._id]" type="date" ng-model="editing[client._id].birthDate" placeholder="Data urodzenia" class="form-control"><br ng-show="editing[client._id]">
+                <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].address" placeholder="Adres" class="form-control"><br ng-show="editing[client._id]">
+                <input ng-show="editing[client._id]" type="number" ng-model="editing[client._id].phone" placeholder="Telefon" class="form-control"><br ng-show="editing[client._id]">
+                <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].email" placeholder="Email" class="form-control"><br ng-show="editing[client._id]">
+                <select class="form-control">
+                  <option ng-repeat="x in cities" ng-model="editing[client._id].city">{{x}}</option>
+                </select><br>
 
-                <button ng-show="editing[$index]" ng-click="update($index)" class="btn btn-success">Aktualizuj</button>
-                <button ng-show="editing[$index]" ng-click="cancel($index)" class="btn btn-warning">Anuluj</button>
+                <button ng-show="editing[client._id]" ng-click="update(client)" class="btn btn-success">Aktualizuj</button>
+                <button ng-show="editing[client._id]" ng-click="cancel(client)" class="btn btn-warning">Anuluj</button>
               </div>
               <div style="display: inline; float: right;">
-                <button ng-show="!editing[$index]" ng-click="remove($index)" class="btn btn-danger">Usuń</button>
-                <button ng-show="!editing[$index]" ng-click="edit($index)" class="btn btn-primary">Edytuj</button>
+                <button ng-show="!editing[client._id]" ng-click="remove(client)" class="btn btn-danger">Usuń</button>
+                <button ng-show="!editing[client._id]" ng-click="edit(client)" class="btn btn-primary">Edytuj</button>
               </div>
               <br><br><br>
             </li>
@@ -52,6 +56,9 @@
           <input type="text" ng-model="newClient.address" class="form-control" placeholder="Adres"><br>
           <input type="number" ng-model="newClient.phone" class="form-control" placeholder="Telefon"><br>
           <input type="text" ng-model="newClient.email" class="form-control" placeholder="Email"><br>
+          <select class="form-control">
+            <option ng-repeat="x in cities" ng-model="newClient.city">{{x}}</option>
+          </select><br>
           <div class="text-center">
             <button ng-click="save()" class="btn btn-success">Dodaj użytkownika</button>
           </div>
@@ -82,6 +89,7 @@
       Adres: <strong>{{client.address}}</strong><br><br>
       Telefon: <strong>{{client.phone}}</strong><br><br>
       Email: <strong>{{client.email}}</strong><br><br>
+      Salon: <strong>{{client.city}}</strong><br><br>
       <div ng-if="client.note">Notatka: <strong>{{client.note}}</strong></div><br><br>
 
       <a href="/" class="btn btn-info">Wróć</a>

@@ -4,11 +4,12 @@ var ClientsSchema = new mongoose.Schema({
   name: String,
   lastName: String,
   note: String,
-  birthDate: Date,
+  birthDate: String,
   address: String,
   phone: Number,
   email: String,
-  registerDate: Date
+  registerDate: Date,
+  city: String
 });
 
 module.exports = mongoose.model('Clients', ClientsSchema);
