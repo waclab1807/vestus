@@ -38,7 +38,7 @@
                 <button ng-show="editing[client._id]" ng-click="cancel(client)" class="btn btn-warning">Anuluj</button>
               </div>
               <div style="display: inline; float: right;">
-                <button ng-show="!editing[client._id]" ng-click="remove(client)" class="btn btn-danger">Usuń</button>
+                <button ng-show="!editing[client._id]" confirmed-click="remove(client)" ng-confirm-click="Na pewno chcesz usunąć klienta {{client.name}} {{client.lastName}}?" class="btn btn-danger">Usuń</button>
                 <button ng-show="!editing[client._id]" ng-click="edit(client)" class="btn btn-primary">Edytuj</button>
               </div>
               <br><br><br>
@@ -108,5 +108,6 @@
     <script src='./js/controllers.js'></script>
     <script src='./js/config.js'></script>
     <script src='./js/services.js'></script>
+    <script src='./js/directives.js'></script>
   </body>
 </html>
