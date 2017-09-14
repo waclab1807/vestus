@@ -30,8 +30,8 @@
                 <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].address" placeholder="Adres" class="form-control"><br ng-show="editing[client._id]">
                 <input ng-show="editing[client._id]" type="number" ng-model="editing[client._id].phone" placeholder="Telefon" class="form-control"><br ng-show="editing[client._id]">
                 <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].email" placeholder="Email" class="form-control"><br ng-show="editing[client._id]">
-                <select class="form-control">
-                  <option ng-repeat="x in cities" ng-model="editing[client._id].city">{{x}}</option>
+                <select class="form-control" ng-model="editing[client._id].city">
+                  <option ng-repeat="x in cities">{{x}}</option>
                 </select><br>
 
                 <button ng-show="editing[client._id]" ng-click="update(client)" class="btn btn-success">Aktualizuj</button>
@@ -56,8 +56,8 @@
           <input type="text" ng-model="newClient.address" class="form-control" placeholder="Adres"><br>
           <input type="number" ng-model="newClient.phone" class="form-control" placeholder="Telefon"><br>
           <input type="text" ng-model="newClient.email" class="form-control" placeholder="Email"><br>
-          <select class="form-control">
-            <option ng-repeat="x in cities" ng-model="newClient.city">{{x}}</option>
+          <select class="form-control" ng-model="newClient.city" ng-init="newClient.city = cities[0]">
+            <option ng-repeat="x in cities">{{x}}</option>
           </select><br>
           <div class="text-center">
             <button ng-click="save()" class="btn btn-success">Dodaj użytkownika</button>
@@ -72,8 +72,9 @@
             <div class="text-center">
               <a class="text-center" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a>
             </div>
-              <span>Telefon: <strong>{{client.phone}}</strong></span><br><br>
-              <span ng-if="client.note">Dodatkowe info: {{client.note}}</span>
+              <span>Telefon: <strong>{{client.phone ? client.phone : 'brak'}}</strong></span><br><br>
+              <span>Salon: <strong>{{client.city}}</strong></span><br><br>
+              <span>Dodatkowe info: {{client.note ? client.note : 'brak'}}</span>
             </li>
           </ul>
         <div>
