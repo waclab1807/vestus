@@ -9,6 +9,8 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var clients = require('./routes/clients');
 
+var config = require('./bin/config.js');
+
 // load mongoose package
 var mongoose = require('mongoose');
 
@@ -17,8 +19,7 @@ mongoose.Promise = global.Promise;
 
 // connect to MongoDB
 
-//mongoose.connect('mongodb://localhost/clients-api')
-mongoose.connect('mongodb://waclab1807:qwerty12345@ds135384.mlab.com:35384/clients-api')
+mongoose.connect(config.mongoose)
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
