@@ -9,9 +9,25 @@ vestus.controller('ClientController', ['$scope', 'Clients', function ($scope, Cl
   $scope.clients = Clients.query();
   $scope.today = new Date;
 
+  $scope.search = function(item) {
+    if (!$scope.query || (item.name.toLowerCase().indexOf($scope.query.toLowerCase()) != -1) || (item.lastName.toLowerCase().indexOf($scope.query.toLowerCase()) != -1) ){
+        return true;
+    }
+    return false;
+};
+
   $scope.save = function(){
     if(!$scope.newClient || $scope.newClient.length < 1) return;
-    var client = new Clients({ name: $scope.newClient.name, lastName: $scope.newClient.lastName, note: $scope.newClient.note, birthDate: $scope.newClient.birthDate, address: $scope.newClient.address, phone: $scope.newClient.phone });
+    var client = new Clients({ 
+      name: $scope.newClient.name, 
+      lastName: $scope.newClient.lastName, 
+      note: $scope.newClient.note, 
+      birthDate: $scope.newClient.birthDate, 
+      address: $scope.newClient.address, 
+      phone: $scope.newClient.phone,
+      email: $scope.newClient.email,
+      registerDate: $scope.today
+    });
 
     client.$save(function(){
       $scope.clients.push(client);

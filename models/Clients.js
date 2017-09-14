@@ -6,7 +6,9 @@ var ClientsSchema = new mongoose.Schema({
   note: String,
   birthDate: Date,
   address: String,
-  phone: Number
+  phone: Number,
+  email: String,
+  registerDate: Date
 });
 
 module.exports = mongoose.model('Clients', ClientsSchema);

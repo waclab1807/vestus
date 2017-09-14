@@ -17,10 +17,10 @@
       <div class="col-lg-4">
         <div class="content">
           <h1 class="text-center">Klienci <img src="http://www.transtech.net.au/wp-content/themes/transtech/images/customers.png" width="80px" class="icons" alt=""></h1>
-          <input type="text" ng-model="search.lastName" class="form-control" placeholder="Szukaj nazwiska..."><br>
+          <input type="text" ng-model="query" class="form-control" placeholder="Szukaj nazwiska..."><br>
           <ul style="list-style: none; padding-left: 0">
-            <li ng-repeat="client in clients | filter: search" class="well" style="list-style: none; padding-left: 0">
-              <a ng-show="!editing[$index]" href="#/{{client._id}}">{{client.name}} {{client.lastName}}</a>
+            <li ng-repeat="client in clients | filter: search | orderBy:'lastName'" class="well" style="list-style: none; padding-left: 0">
+              <a ng-show="!editing[$index]" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a>
               <div ng-show="editing[$index]">
                 <input ng-show="editing[$index]" type="text" ng-model="client.name" placeholder="Imię" class="form-control"><br ng-show="editing[$index]">
                 <input ng-show="editing[$index]" type="text" ng-model="client.lastName" placeholder="Nazwisko" class="form-control"><br ng-show="editing[$index]">
@@ -28,6 +28,7 @@
                 <input ng-show="editing[$index]" type="date" ng-model="client.birthDate" placeholder="Data urodzenia" class="form-control"><br ng-show="editing[$index]">
                 <input ng-show="editing[$index]" type="text" ng-model="client.address" placeholder="Adres" class="form-control"><br ng-show="editing[$index]">
                 <input ng-show="editing[$index]" type="number" ng-model="client.phone" placeholder="Telefon" class="form-control"><br ng-show="editing[$index]">
+                <input ng-show="editing[$index]" type="text" ng-model="client.email" placeholder="Email" class="form-control"><br ng-show="editing[$index]">
 
                 <button ng-show="editing[$index]" ng-click="update($index)" class="btn btn-success">Aktualizuj</button>
                 <button ng-show="editing[$index]" ng-click="cancel($index)" class="btn btn-warning">Anuluj</button>
@@ -50,6 +51,7 @@
           <input type="date" ng-model="newClient.birthDate" class="form-control" placeholder="Data urodzenia"><br>
           <input type="text" ng-model="newClient.address" class="form-control" placeholder="Adres"><br>
           <input type="number" ng-model="newClient.phone" class="form-control" placeholder="Telefon"><br>
+          <input type="text" ng-model="newClient.email" class="form-control" placeholder="Email"><br>
           <div class="text-center">
             <button ng-click="save()" class="btn btn-success">Dodaj użytkownika</button>
           </div>
@@ -59,9 +61,9 @@
         <div class="content">
           <h1 class="text-center">Solenizanci <img src="https://image.flaticon.com/icons/png/512/233/233881.png" class="icons" width="80px" alt=""></h1>
           <ul style="list-style-type: none; padding-left: 0;">
-            <li ng-repeat="client in clients | filter: search" ng-if="(client.birthDate | date: 'dd.MM') === (today | date: 'dd.MM')" class="well">
+            <li ng-repeat="client in clients | orderBy:'lastName'" ng-if="(client.birthDate | date: 'dd.MM') === (today | date: 'dd.MM')" class="well">
             <div class="text-center">
-              <a class="text-center" href="#/{{client._id}}">{{client.name}} {{client.lastName}}</a>
+              <a class="text-center" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a>
             </div>
               <span>Telefon: <strong>{{client.phone}}</strong></span><br><br>
               <span ng-if="client.note">Dodatkowe info: {{client.note}}</span>
@@ -74,11 +76,12 @@
 
     <script type="text/ng-template" id="/clientDetails.html">
       <div class="well">
-        <h1>{{ client.name }} {{ client.lastName }}</h1>
+        <h1>{{ client.lastName }} {{ client.name }}</h1>
 
       Data urodzenia: <strong>{{client.birthDate | date}}</strong><br><br>
       Adres: <strong>{{client.address}}</strong><br><br>
       Telefon: <strong>{{client.phone}}</strong><br><br>
+      Email: <strong>{{client.email}}</strong><br><br>
       <div ng-if="client.note">Notatka: <strong>{{client.note}}</strong></div><br><br>
 
       <a href="/" class="btn btn-info">Wróć</a>
