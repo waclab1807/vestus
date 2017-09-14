@@ -23,19 +23,19 @@
             <li ng-repeat="client in clients | filter: search | orderBy:'lastName'" class="well" style="list-style: none; padding-left: 0">
               <a ng-show="!editing[client._id]" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a>
               <div ng-show="editing[client._id]">
-                <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].name" placeholder="Imię" class="form-control"><br ng-show="editing[client._id]">
-                <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].lastName" placeholder="Nazwisko" class="form-control"><br ng-show="editing[client._id]">
-                <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].note" placeholder="Notatka" class="form-control"><br ng-show="editing[client._id]">
-                <input ng-show="editing[client._id]" type="date" ng-model="editing[client._id].birthDate" placeholder="Data urodzenia" class="form-control"><br ng-show="editing[client._id]">
-                <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].address" placeholder="Adres" class="form-control"><br ng-show="editing[client._id]">
-                <input ng-show="editing[client._id]" type="number" ng-model="editing[client._id].phone" placeholder="Telefon" class="form-control"><br ng-show="editing[client._id]">
-                <input ng-show="editing[client._id]" type="text" ng-model="editing[client._id].email" placeholder="Email" class="form-control"><br ng-show="editing[client._id]">
+                <input type="text" ng-model="editing[client._id].name" placeholder="Imię" class="form-control"><br>
+                <input type="text" ng-model="editing[client._id].lastName" placeholder="Nazwisko" class="form-control"><br>
+                <input type="text" ng-model="editing[client._id].note" placeholder="Notatka" class="form-control"><br>
+                <input type="date" ng-model="editing[client._id].birthDate" placeholder="Data urodzenia" class="form-control"><br>
+                <input type="text" ng-model="editing[client._id].address" placeholder="Adres" class="form-control"><br>
+                <input type="number" ng-model="editing[client._id].phone" placeholder="Telefon" class="form-control"><br>
+                <input type="text" ng-model="editing[client._id].email" placeholder="Email" class="form-control"><br>
                 <select class="form-control" ng-model="editing[client._id].city">
                   <option ng-repeat="x in cities">{{x}}</option>
                 </select><br>
 
-                <button ng-show="editing[client._id]" ng-click="update(client)" class="btn btn-success">Aktualizuj</button>
-                <button ng-show="editing[client._id]" ng-click="cancel(client)" class="btn btn-warning">Anuluj</button>
+                <button ng-click="update(client)" class="btn btn-success">Aktualizuj</button>
+                <button ng-click="cancel(client)" class="btn btn-warning">Anuluj</button>
               </div>
               <div style="display: inline; float: right;">
                 <button ng-show="!editing[client._id]" confirmed-click="remove(client)" ng-confirm-click="Na pewno chcesz usunąć klienta {{client.name}} {{client.lastName}}?" class="btn btn-danger">Usuń</button>
