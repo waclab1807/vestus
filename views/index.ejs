@@ -30,6 +30,7 @@
                 <input type="text" ng-model="editing[client._id].address" placeholder="Adres" class="form-control"><br>
                 <input type="number" ng-model="editing[client._id].phone" placeholder="Telefon" class="form-control"><br>
                 <input type="text" ng-model="editing[client._id].email" placeholder="Email" class="form-control"><br>
+                <input type="text" ng-model="editing[client._id].cardNr" placeholder="Nr karty" class="form-control"><br>
                 <select class="form-control" ng-model="editing[client._id].city">
                   <option ng-repeat="x in cities">{{x}}</option>
                 </select><br>
@@ -56,6 +57,7 @@
           <input type="text" ng-model="newClient.address" class="form-control" placeholder="Adres"><br>
           <input type="number" ng-model="newClient.phone" class="form-control" placeholder="Telefon"><br>
           <input type="text" ng-model="newClient.email" class="form-control" placeholder="Email"><br>
+          <input type="text" ng-model="newClient.cardNr" class="form-control" placeholder="Nr karty"><br>
           <select class="form-control" ng-model="newClient.city" ng-init="newClient.city = cities[0]">
             <option ng-repeat="x in cities">{{x}}</option>
           </select><br>
@@ -91,7 +93,8 @@
       Telefon: <strong>{{client.phone}}</strong><br><br>
       Email: <strong>{{client.email}}</strong><br><br>
       Salon: <strong>{{client.city}}</strong><br><br>
-      <div ng-if="client.note">Notatka: <strong>{{client.note}}</strong></div><br><br>
+      Nr karty: <strong>{{client.cardNr}}</strong><br><br>
+      <div ng-if="client.note">Notatka: <strong>{{client.note}}</strong></div>
 
       <a href="/" class="btn btn-info">Wróć</a>
       </div>

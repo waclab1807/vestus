@@ -28,7 +28,8 @@ vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function 
       phone: $scope.newClient.phone,
       email: $scope.newClient.email,
       registerDate: $scope.today,
-      city: $scope.newClient.city
+      city: $scope.newClient.city,
+      cardNr: $scope.newClient.cardNr
     });
 
     client.$save(function(){

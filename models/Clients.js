@@ -9,7 +9,8 @@ var ClientsSchema = new mongoose.Schema({
   phone: Number,
   email: String,
   registerDate: Date,
-  city: String
+  city: String,
+  cardNr: String
 });
 
 module.exports = mongoose.model('Clients', ClientsSchema);
