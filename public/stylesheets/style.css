@@ -1,17 +1,25 @@
 body {
-  padding: 50px;
+  padding: 10px 50px;
   font: 14px "Lato", "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #546E7A;
   color: black;
-  /*background-image: url('http://www.vestus.pl/files/slider1.jpg');*/
-  /*background-repeat:  no-repeat;*/
-  /*background-size: cover;*/
 }
 
 a {
   padding-left: 20px;
   color: black;
   font-size: 20px;
+}
+
+ul {
+  list-style-type: none; 
+  padding-left: 0; 
+  max-height: 432px; 
+  overflow: auto;
+}
+
+li {
+  margin: 0 10px;
 }
 
 .btn {
@@ -26,9 +34,11 @@ a {
     position: absolute;
     top: -15px;
     right: 0;
+    width: 50px;
 }
 
 .content {
+  max-height: 602px;
   background-color: white;
   border-radius: 5px;
   padding: 20px
@@ -45,11 +55,11 @@ a {
 
 .page-bg {
   background: url('http://www.vestus.pl/files/slider1.jpg');
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(10px);
+  -webkit-filter: blur(3px);
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
   position: fixed;
   width: 100%;
   height: 100%;
