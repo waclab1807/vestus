@@ -88,6 +88,10 @@
               <span>Salon: <strong>{{client.city}}</strong></span><br><br>
               <span>Dodatkowe info: {{client.note ? client.note : 'brak'}}</span>
             </li>
+            
+            <div ng-if="(solenizants|customFilter).length === 0" class="text-center">
+              Żaden klient nie ma dziś urodzin.
+            </div>
           </ul>
         <div>
       </div>
