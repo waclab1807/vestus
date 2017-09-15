@@ -2,9 +2,22 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-const notifier = require('node-notifier');
 
 var User = require('../models/Users');
+
+// Get Homepage
+router.get('/', ensureAuthenticated, function(req, res){
+	res.render('index', { username: req.user.name });
+});
+
+function ensureAuthenticated(req, res, next){
+	if(req.isAuthenticated()){
+		return next();
+	} else {
+		//req.flash('error_msg','You are not logged in');
+		res.redirect('/login');
+	}
+}
 
 // Register
 router.get('/register', function(req, res){
@@ -14,7 +27,7 @@ router.get('/register', function(req, res){
 
 // Login
 router.get('/login', function(req, res){
-	res.render('login');
+	res.render('login', {success : true, msg: ""});
 });
 
 // Register User
@@ -54,7 +67,7 @@ router.post('/register', function(req, res){
 
 		req.flash('success_msg', 'You are registered and can now login');
 
-		res.redirect('/users/login');
+		res.redirect('/login');
 	}
 });
 
@@ -103,19 +116,10 @@ router.post('/login', function(req, res, next) {
     }
     // Generate a JSON response reflecting authentication status
     if (! user) {
-			notifier.notify({
-				'title': 'Vestus',
-				'message': 'Błędne dane'
-			});
-			return res.redirect('/');
+			return res.render('login', {success : false, msg: "Błędne dane logowania"});
       //return res.send({ success : false, message : 'authentication failed' });
     }
-    // ***********************************************************************
-    // "Note that when using a custom callback, it becomes the application's
-    // responsibility to establish a session (by calling req.login()) and send
-    // a response."
-    // Source: http://passportjs.org/docs
-    // ***********************************************************************
+    
     req.login(user, loginErr => {
       if (loginErr) {
         return next(loginErr);
@@ -136,7 +140,7 @@ router.get('/logout', function(req, res){
 
 	req.flash('success_msg', 'You are logged out');
 
-	res.redirect('/users/login');
+	res.redirect('/login');
 });
 
 module.exports = router;

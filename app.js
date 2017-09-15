@@ -86,13 +86,14 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/', routes);
-app.use('/users', users);
+//app.use('/', routes);
+app.use('/', users);
 app.use('/clients', clients);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
+  res.redirect('/');
   err.status = 404;
   next(err);
 });

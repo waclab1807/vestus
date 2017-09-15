@@ -72,21 +72,6 @@ vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function 
   }
 }]);
 
-vestus.filter('customFilter', function($filter) {
-   return function(items) {
-    var filtered = [];
-    var today = $filter('date')(new Date, "dd/MM");
-
-    angular.forEach(items, function(item) {
-        if($filter('date')(item.birthDate, "dd/MM") === today){
-            filtered.push(item);
-        }
-    });
-
-    return filtered;
-  };
-});
-
 vestus.controller('ClientDetailCtrl', ['$scope', '$routeParams', 'Clients', '$location', function ($scope, $routeParams, Clients, $location) {
   $scope.client = Clients.get({id: $routeParams.id });
 }]);
