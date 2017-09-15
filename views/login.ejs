@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <title>login</title>
+    <link rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div class="page-bg"></div>
+
+    <div class="container text-center well login-container">
+      <img src="/images/logo.jpg" alt=""><br><br>
+      <form method="post" action="/users/login">
+        <div class="form-group">
+          <input type="text" class="form-control" name="username" placeholder="Login">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" name="password" placeholder="Hasło">
+        </div>
+        <button type="submit" class="btn btn-success">Zaloguj</button>
+      </form>
+    </div>
+    
+  </body>
+</html>

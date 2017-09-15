@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html ng-app="app">
   <head>
-    <title><%= title %></title>
+    <title>Vestus</title>
     <link rel='stylesheet' href='/components/bootstrap/dist/css/bootstrap.min.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1 class="text-center well title-bar"><img src="http://www.myiconfinder.com/uploads/iconsets/256-256-b910484213ee753c725545d86998d296-business.png" width="60px" alt=""><img src="http://www.vestus.pl/templates/default/img/logo.jpg" alt=""></h1>
+    <div class="text-center well title-bar">
+      <h1>
+      <span style="position: absolute; top: 25px; right: 100px; font-size: 20px"><%= username %></span>
+      <img src="/images/suite.png" width="60px" alt="">
+      <img src="/images/logo.jpg" alt="">
+      <a href="/users/logout" class="logout" title="Wyloguj"><img src="/images/logout.png" alt=""></a>
+      </h1>
+    </div>
     <div class="page-bg">
     </div>
+  
     <ng-view></ng-view>
+
+    <script>city="<%=username%>";</script>
 
      <!-- Template -->
     <script type="text/ng-template" id="/clients.html">
@@ -17,7 +27,7 @@
       <div class="col-lg-4">
         <div class="content">
 
-          <h1 class="text-center">Klienci <img src="http://www.transtech.net.au/wp-content/themes/transtech/images/customers.png" class="icons" alt=""></h1>
+          <h1 class="text-center">Klienci {{x}}<img src="/images/customers.png" class="icons" alt=""></h1>
           <input type="text" ng-model="query" class="form-control" placeholder="Szukaj nazwiska..."><br>
           <ul>
             <li ng-repeat="client in clients | filter: search | orderBy:'lastName'" class="well" style="list-style: none; padding-left: 0">
@@ -49,7 +59,7 @@
       </div>
       <div class="col-lg-4">
         <div class="content">
-          <h1 class="text-center">Dodaj nowego klienta <img src="https://lh3.ggpht.com/VktcACh_TxNGR7HmTVYVHxayIwwp57TydpeE0Y3KGE4X1Qpk2CrXOyf3K_uGBeB7S8U=w300" class="icons" alt=""></h1>
+          <h1 class="text-center">Dodaj nowego klienta <img src="/images/addCustomer.png" class="icons" alt=""></h1>
           <input type="text" ng-model="newClient.name" class="form-control" placeholder="Imię"><br>
           <input type="text" ng-model="newClient.lastName" class="form-control" placeholder="Nazwisko"><br>
           <input type="text" ng-model="newClient.note" class="form-control" placeholder="Notatka"><br>
@@ -58,7 +68,7 @@
           <input type="number" ng-model="newClient.phone" class="form-control" placeholder="Telefon"><br>
           <input type="text" ng-model="newClient.email" class="form-control" placeholder="Email"><br>
           <input type="text" ng-model="newClient.cardNr" class="form-control" placeholder="Nr karty"><br>
-          <select class="form-control" ng-model="newClient.city" ng-init="newClient.city = cities[0]">
+          <select class="form-control" ng-model="newClient.city" ng-init="newClient.city = city">
             <option ng-repeat="x in cities">{{x}}</option>
           </select><br>
           <div class="text-center">
@@ -68,12 +78,12 @@
       </div>
       <div class="col-lg-4">
         <div class="content">
-          <h1 class="text-center">Solenizanci <img src="https://image.flaticon.com/icons/png/512/233/233881.png" class="icons" alt=""></h1>
+          <h1 class="text-center">Solenizanci <img src="/images/birthday.png" class="icons" alt=""></h1>
           <ul>
-            <li ng-repeat="client in clients | orderBy:'lastName'" ng-if="(client.birthDate | date: 'dd.MM') === (today | date: 'dd.MM')" class="well">
-            <div class="text-center">
-              <a class="text-center" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a>
-            </div>
+            <li ng-repeat="client in solenizants | orderBy:'lastName'" ng-if="(client.birthDate | date: 'dd.MM') === (today | date: 'dd.MM')" class="well">
+              <div class="text-center">
+                <a class="text-center" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a><br><br>
+              </div>
               <span>Telefon: <strong>{{client.phone ? client.phone : 'brak'}}</strong></span><br><br>
               <span>Salon: <strong>{{client.city}}</strong></span><br><br>
               <span>Dodatkowe info: {{client.note ? client.note : 'brak'}}</span>
@@ -94,7 +104,7 @@
       Email: <strong>{{client.email}}</strong><br><br>
       Salon: <strong>{{client.city}}</strong><br><br>
       Nr karty: <strong>{{client.cardNr}}</strong><br><br>
-      <div ng-if="client.note">Notatka: <strong>{{client.note}}</strong></div>
+      <div ng-if="client.note">Notatka: <strong>{{client.note}}</strong></div><br>
 
       <a href="/" class="btn btn-info">Wróć</a>
       </div>

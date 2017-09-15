@@ -7,8 +7,10 @@ var vestus = angular.module('app', ['ngRoute', 'ngResource']);
 vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function ($scope, Clients, $filter) {
   $scope.editing = [];
   $scope.clients = Clients.query();
+  $scope.solenizants = Clients.query();
   $scope.today = new Date;
   $scope.cities = ["Nowy Sącz", "Stalowa Wola", "Łódź"];
+  $scope.city = window.city;
 
   $scope.search = function(item) {
     if (!$scope.query || (item.name.toLowerCase().indexOf($scope.query.toLowerCase()) != -1) || (item.lastName.toLowerCase().indexOf($scope.query.toLowerCase()) != -1) ){
@@ -18,6 +20,12 @@ vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function 
 };
 
   $scope.save = function(){
+
+    if ($scope.newClient.name === '' || $scope.newClient.lastName === '' || $scope.newClient.cardNr === '') {
+      alert('Wypełnij brakujące pola');
+      return;
+    }
+
     if(!$scope.newClient || $scope.newClient.length < 1) return;
     var client = new Clients({ 
       name: $scope.newClient.name, 
@@ -34,6 +42,7 @@ vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function 
 
     client.$save(function(){
       $scope.clients.push(client);
+      $scope.solenizants.push(client);
       $scope.newClient = ''; // clear textbox
     });
   }
@@ -44,7 +53,6 @@ vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function 
   }
 
   $scope.edit = function(client){
-    console.log(client);
     $scope.editing[client._id] = client;
   }
 
@@ -57,16 +65,13 @@ vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function 
       $scope.clients = $scope.clients.filter((elem) => {
           return elem._id != client._id
       });
+      $scope.solenizants = $scope.clients.filter((elem) => {
+          return elem._id != client._id
+      });
     });
   }
 }]);
 
 vestus.controller('ClientDetailCtrl', ['$scope', '$routeParams', 'Clients', '$location', function ($scope, $routeParams, Clients, $location) {
   $scope.client = Clients.get({id: $routeParams.id });
-
-  $scope.remove = function(){
-    Clients.remove({id: $scope.client._id}, function(){
-      $location.url('/');
-    });
-  }
 }]);
