@@ -30,9 +30,10 @@
           <h1 class="text-center">Klienci {{x}}<img src="/images/customers.png" class="icons" alt=""></h1>
           <input type="text" ng-model="query" class="form-control" placeholder="Szukaj nazwiska..."><br>
           <ul>
-            <li ng-repeat="client in clients | filter: search | orderBy:'lastName'" class="well" style="list-style: none; padding-left: 0">
+            <li ng-repeat="client in clients | filter: search | orderBy:'lastName'" ng-if="client.city === city" class="well" style="list-style: none; padding-left: 0">
               <a ng-show="!editing[client._id]" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a>
               <div ng-show="editing[client._id]">
+                <input type="text" ng-model="editing[client._id].cardNr" placeholder="Nr karty" class="form-control"><br>
                 <input type="text" ng-model="editing[client._id].name" placeholder="Imię" class="form-control"><br>
                 <input type="text" ng-model="editing[client._id].lastName" placeholder="Nazwisko" class="form-control"><br>
                 <input type="text" ng-model="editing[client._id].note" placeholder="Notatka" class="form-control"><br>
@@ -40,7 +41,6 @@
                 <input type="text" ng-model="editing[client._id].address" placeholder="Adres" class="form-control"><br>
                 <input type="number" ng-model="editing[client._id].phone" placeholder="Telefon" class="form-control"><br>
                 <input type="text" ng-model="editing[client._id].email" placeholder="Email" class="form-control"><br>
-                <input type="text" ng-model="editing[client._id].cardNr" placeholder="Nr karty" class="form-control"><br>
                 <select class="form-control" ng-model="editing[client._id].city">
                   <option ng-repeat="x in cities">{{x}}</option>
                 </select><br>
@@ -60,6 +60,7 @@
       <div class="col-lg-4">
         <div class="content">
           <h1 class="text-center">Dodaj nowego klienta <img src="/images/addCustomer.png" class="icons" alt=""></h1>
+          <input type="text" ng-model="newClient.cardNr" class="form-control" placeholder="Nr karty"><br>
           <input type="text" ng-model="newClient.name" class="form-control" placeholder="Imię"><br>
           <input type="text" ng-model="newClient.lastName" class="form-control" placeholder="Nazwisko"><br>
           <input type="text" ng-model="newClient.note" class="form-control" placeholder="Notatka"><br>
@@ -67,7 +68,6 @@
           <input type="text" ng-model="newClient.address" class="form-control" placeholder="Adres"><br>
           <input type="number" ng-model="newClient.phone" class="form-control" placeholder="Telefon"><br>
           <input type="text" ng-model="newClient.email" class="form-control" placeholder="Email"><br>
-          <input type="text" ng-model="newClient.cardNr" class="form-control" placeholder="Nr karty"><br>
           <select class="form-control" ng-model="newClient.city" ng-init="newClient.city = city">
             <option ng-repeat="x in cities">{{x}}</option>
           </select><br>
@@ -80,7 +80,7 @@
         <div class="content">
           <h1 class="text-center">Solenizanci <img src="/images/birthday.png" class="icons" alt=""></h1>
           <ul>
-            <li ng-repeat="client in solenizants | orderBy:'lastName'" ng-if="(client.birthDate | date: 'dd.MM') === (today | date: 'dd.MM')" class="well">
+            <li ng-repeat="client in solenizants | orderBy:'lastName'" ng-if="(client.birthDate | date: 'dd.MM') === (today | date: 'dd.MM') && client.city === city" class="well">
               <div class="text-center">
                 <a class="text-center" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a><br><br>
               </div>
