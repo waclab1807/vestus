@@ -52,6 +52,7 @@
               </div>
               <br><br><br>
             </li>
+            <li ng-if="(clients | filter: {city: city}).length == 0">Brak klientów</li>
           </ul>
         </div>
       </div>
