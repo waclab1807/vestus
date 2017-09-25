@@ -11,6 +11,7 @@ vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function 
   $scope.today = new Date;
   $scope.cities = ["Nowy Sącz", "Stalowa Wola", "Łódź"];
   $scope.city = window.city;
+  $scope.newClient = '';
 
   $scope.search = function(item) {
     if (!$scope.query || (item.name.toLowerCase().indexOf($scope.query.toLowerCase()) != -1) || (item.lastName.toLowerCase().indexOf($scope.query.toLowerCase()) != -1) ){
@@ -20,7 +21,7 @@ vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function 
   };
 
   $scope.save = function(){
-    
+
     if ($scope.newClient.name === undefined || $scope.newClient.lastName === undefined || $scope.newClient.cardNr === undefined) {
       alert('Wypełnij brakujące pola! (imię, nazwisko i nr karty)');
       return;
@@ -36,7 +37,7 @@ vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function 
       phone: $scope.newClient.phone,
       email: $scope.newClient.email,
       registerDate: $scope.today,
-      city: $scope.newClient.city,
+      city: $scope.city,
       cardNr: $scope.newClient.cardNr
     });
 

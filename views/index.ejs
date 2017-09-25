@@ -41,9 +41,7 @@
                 <input type="text" ng-model="editing[client._id].address" placeholder="Adres" class="form-control"><br>
                 <input type="number" ng-model="editing[client._id].phone" placeholder="Telefon" class="form-control"><br>
                 <input type="text" ng-model="editing[client._id].email" placeholder="Email" class="form-control"><br>
-                <select class="form-control" ng-model="editing[client._id].city">
-                  <option ng-repeat="x in cities">{{x}}</option>
-                </select><br>
+                
 
                 <button ng-click="update(client)" class="btn btn-success">Aktualizuj</button>
                 <button ng-click="cancel(client)" class="btn btn-warning">Anuluj</button>
@@ -68,9 +66,7 @@
           <input type="text" ng-model="newClient.address" class="form-control" placeholder="Adres"><br>
           <input type="number" ng-model="newClient.phone" class="form-control" placeholder="Telefon"><br>
           <input type="text" ng-model="newClient.email" class="form-control" placeholder="Email"><br>
-          <select class="form-control" ng-model="newClient.city" ng-init="newClient.city = city">
-            <option ng-repeat="x in cities">{{x}}</option>
-          </select><br>
+          
           <div class="text-center">
             <button ng-click="save()" class="btn btn-success">Dodaj użytkownika</button>
           </div>
