@@ -10,10 +10,10 @@ var UserSchema = mongoose.Schema({
 	password: {
 		type: String
 	},
-	email: {
+	name: {
 		type: String
 	},
-	name: {
+	type: {
 		type: String
 	}
 });

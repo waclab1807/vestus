@@ -21,10 +21,14 @@ router.post('/', function(req, res, next) {
 
 /* GET /clients/id */
 router.get('/:id', function(req, res, next) {
-  Clients.findById(req.params.id, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
+  if (req.user.type === 'admin') {
+    Clients.findById(req.params.id, function (err, post) {
+      if (err) return next(err);
+      res.json(post);
+    });
+  } else {
+    return next(err);
+  }
 });
 
 /* PUT /clients/:id */

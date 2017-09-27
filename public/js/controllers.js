@@ -11,6 +11,7 @@ vestus.controller('ClientController', ['$scope', 'Clients', '$filter', function 
   $scope.today = new Date;
   $scope.cities = ["Nowy Sącz", "Stalowa Wola", "Łódź"];
   $scope.city = window.city;
+  $scope.userType = window.type;
   $scope.newClient = '';
 
   $scope.search = function(item) {

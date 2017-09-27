@@ -7,7 +7,7 @@ var User = require('../models/Users');
 
 // Get Homepage
 router.get('/', ensureAuthenticated, function(req, res){
-	res.render('index', { username: req.user.name });
+	res.render('index', { username: req.user.name, type: req.user.type });
 });
 
 function ensureAuthenticated(req, res, next){
@@ -22,6 +22,7 @@ function ensureAuthenticated(req, res, next){
 // Register
 router.get('/register', function(req, res){
 	res.render('error');
+	// enable register page
 	//res.render('register');
 });
 
@@ -33,15 +34,14 @@ router.get('/login', function(req, res){
 // Register User
 router.post('/register', function(req, res){
 	var name = req.body.name;
-	var email = req.body.email;
+	var type = req.body.type;
 	var username = req.body.username;
 	var password = req.body.password;
 	var password2 = req.body.password2;
 
 	// Validation
 	req.checkBody('name', 'Name is required').notEmpty();
-	req.checkBody('email', 'Email is required').notEmpty();
-	req.checkBody('email', 'Email is not valid').isEmail();
+	req.checkBody('type', 'Type is required').notEmpty();
 	req.checkBody('username', 'Username is required').notEmpty();
 	req.checkBody('password', 'Password is required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
@@ -55,9 +55,9 @@ router.post('/register', function(req, res){
 	} else {
 		var newUser = new User({
 			name: name,
-			email:email,
 			username: username,
-			password: password
+			password: password,
+			type: type
 		});
 
 		User.createUser(newUser, function(err, user){

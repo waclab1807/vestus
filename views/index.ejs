@@ -19,95 +19,99 @@
   
     <ng-view></ng-view>
 
-    <script>city="<%=username%>";</script>
+    <script>
+      city="<%= username %>";
+      type="<%= type %>";
+    </script>
 
      <!-- Template -->
     <script type="text/ng-template" id="/clients.html">
-    <div class="row">
-      <div class="col-lg-4">
-        <div class="content">
+      <div class="row">
+        <div class="col-lg-4" ng-if="userType === 'admin'">
+          <div class="content">
 
-          <h1 class="text-center">Klienci {{x}}<img src="/images/customers.png" class="icons" alt=""></h1>
-          <input type="text" ng-model="query" class="form-control" placeholder="Szukaj nazwiska..."><br>
-          <ul>
-            <li ng-repeat="client in clients | filter: search | orderBy:'lastName'" ng-if="client.city === city" class="well" style="list-style: none; padding-left: 0">
-              <a ng-show="!editing[client._id]" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a>
-              <div ng-show="editing[client._id]">
-                <input type="text" ng-model="editing[client._id].cardNr" placeholder="Nr karty" class="form-control"><br>
-                <input type="text" ng-model="editing[client._id].name" placeholder="Imię" class="form-control"><br>
-                <input type="text" ng-model="editing[client._id].lastName" placeholder="Nazwisko" class="form-control"><br>
-                <input type="text" ng-model="editing[client._id].note" placeholder="Notatka" class="form-control"><br>
-                <input type="date" ng-model="editing[client._id].birthDate" placeholder="Data urodzenia" class="form-control"><br>
-                <input type="text" ng-model="editing[client._id].address" placeholder="Adres" class="form-control"><br>
-                <input type="number" ng-model="editing[client._id].phone" placeholder="Telefon" class="form-control"><br>
-                <input type="text" ng-model="editing[client._id].email" placeholder="Email" class="form-control"><br>
-                
+            <h1 class="text-center">Klienci<img src="/images/customers.png" class="icons" alt=""></h1>
+            <input type="text" ng-model="query" class="form-control" placeholder="Szukaj nazwiska..."><br>
+            <ul>
+              <li ng-repeat="client in clients | filter: search | orderBy:'lastName'" ng-if="client.city === city" class="well" style="list-style: none; padding-left: 0">
+                <a ng-show="!editing[client._id]" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a>
+                <div ng-show="editing[client._id]">
+                  <input type="text" ng-model="editing[client._id].cardNr" placeholder="Nr karty" class="form-control"><br>
+                  <input type="text" ng-model="editing[client._id].name" placeholder="Imię" class="form-control"><br>
+                  <input type="text" ng-model="editing[client._id].lastName" placeholder="Nazwisko" class="form-control"><br>
+                  <input type="text" ng-model="editing[client._id].note" placeholder="Notatka" class="form-control"><br>
+                  <input type="date" ng-model="editing[client._id].birthDate" placeholder="Data urodzenia" class="form-control"><br>
+                  <input type="text" ng-model="editing[client._id].address" placeholder="Adres" class="form-control"><br>
+                  <input type="number" ng-model="editing[client._id].phone" placeholder="Telefon" class="form-control"><br>
+                  <input type="text" ng-model="editing[client._id].email" placeholder="Email" class="form-control"><br>
+                  
 
-                <button ng-click="update(client)" class="btn btn-success">Aktualizuj</button>
-                <button ng-click="cancel(client)" class="btn btn-warning">Anuluj</button>
-              </div>
-              <div style="display: inline; float: right;">
-                <button ng-show="!editing[client._id]" confirmed-click="remove(client)" ng-confirm-click="Na pewno chcesz usunąć klienta {{client.name}} {{client.lastName}}?" class="btn btn-danger">Usuń</button>
-                <button ng-show="!editing[client._id]" ng-click="edit(client)" class="btn btn-primary">Edytuj</button>
-              </div>
-              <br><br><br>
-            </li>
-            <li ng-if="(clients | filter: {city: city}).length == 0">Brak klientów</li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="content">
-          <h1 class="text-center">Dodaj nowego klienta <img src="/images/addCustomer.png" class="icons" alt=""></h1>
-          <input type="text" ng-model="newClient.cardNr" class="form-control" placeholder="Nr karty"><br>
-          <input type="text" ng-model="newClient.name" class="form-control" placeholder="Imię"><br>
-          <input type="text" ng-model="newClient.lastName" class="form-control" placeholder="Nazwisko"><br>
-          <input type="text" ng-model="newClient.note" class="form-control" placeholder="Notatka"><br>
-          <input type="date" ng-model="newClient.birthDate" class="form-control" placeholder="Data urodzenia"><br>
-          <input type="text" ng-model="newClient.address" class="form-control" placeholder="Adres"><br>
-          <input type="number" ng-model="newClient.phone" class="form-control" placeholder="Telefon"><br>
-          <input type="text" ng-model="newClient.email" class="form-control" placeholder="Email"><br>
-          
-          <div class="text-center">
-            <button ng-click="save()" class="btn btn-success">Dodaj użytkownika</button>
+                  <button ng-click="update(client)" class="btn btn-success">Aktualizuj</button>
+                  <button ng-click="cancel(client)" class="btn btn-warning">Anuluj</button>
+                </div>
+                <div style="display: inline; float: right;">
+                  <button ng-show="!editing[client._id]" confirmed-click="remove(client)" ng-confirm-click="Na pewno chcesz usunąć klienta {{client.name}} {{client.lastName}}?" class="btn btn-danger">Usuń</button>
+                  <button ng-show="!editing[client._id]" ng-click="edit(client)" class="btn btn-primary">Edytuj</button>
+                </div>
+                <br><br><br>
+              </li>
+              <li ng-if="(clients | filter: {city: city}).length == 0">Brak klientów</li>
+            </ul>
           </div>
         </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="content">
-          <h1 class="text-center">Solenizanci <img src="/images/birthday.png" class="icons" alt=""></h1>
-          <ul>
-            <li ng-repeat="client in solenizants | orderBy:'lastName'" ng-if="(client.birthDate | date: 'dd.MM') === (today | date: 'dd.MM') && client.city === city" class="well">
-              <div class="text-center">
-                <a class="text-center" href="#/{{client._id}}">{{client.lastName}} {{client.name}}</a><br><br>
-              </div>
-              <span>Telefon: <strong>{{client.phone ? client.phone : 'brak'}}</strong></span><br><br>
-              <span>Salon: <strong>{{client.city}}</strong></span><br><br>
-              <span>Dodatkowe info: {{client.note ? client.note : 'brak'}}</span>
-            </li>
+        <div class="col-lg-4">
+          <div class="content">
+            <h1 class="text-center">Dodaj nowego klienta <img src="/images/addCustomer.png" class="icons" alt=""></h1>
+            <input type="text" ng-model="newClient.cardNr" class="form-control" placeholder="Nr karty"><br>
+            <input type="text" ng-model="newClient.name" class="form-control" placeholder="Imię"><br>
+            <input type="text" ng-model="newClient.lastName" class="form-control" placeholder="Nazwisko"><br>
+            <input type="text" ng-model="newClient.note" class="form-control" placeholder="Notatka"><br>
+            <input type="date" ng-model="newClient.birthDate" class="form-control" placeholder="Data urodzenia"><br>
+            <input type="text" ng-model="newClient.address" class="form-control" placeholder="Adres"><br>
+            <input type="number" ng-model="newClient.phone" class="form-control" placeholder="Telefon"><br>
+            <input type="text" ng-model="newClient.email" class="form-control" placeholder="Email"><br>
             
-            <div ng-if="(solenizants|customFilter).length === 0" class="text-center">
-              Żaden klient nie ma dziś urodzin.
+            <div class="text-center">
+              <button ng-click="save()" class="btn btn-success">Dodaj użytkownika</button>
             </div>
-          </ul>
-        <div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="content">
+            <h1 class="text-center">Solenizanci <img src="/images/birthday.png" class="icons" alt=""></h1>
+            <ul>
+              <li ng-repeat="client in solenizants | orderBy:'lastName'" ng-if="(client.birthDate | date: 'dd.MM') === (today | date: 'dd.MM') && client.city === city" class="well">
+                <div class="text-center">
+                  <a href="#/{{client._id}}" ng-if="userType === 'admin'">{{client.lastName}} {{client.name}}</a>
+                  <h3 ng-if="userType !== 'admin'">{{client.lastName}} {{client.name}}</h3><br><br>
+                </div>
+                <span>Telefon: <strong>{{client.phone ? client.phone : 'brak'}}</strong></span><br><br>
+                <span>Salon: <strong>{{client.city}}</strong></span><br><br>
+                <span>Dodatkowe info: {{client.note ? client.note : 'brak'}}</span>
+              </li>
+              
+              <div ng-if="(solenizants|customFilter).length === 0" class="text-center">
+                Żaden klient nie ma dziś urodzin.
+              </div>
+            </ul>
+          <div>
+        </div>
       </div>
-    </div>
     </script>
 
     <script type="text/ng-template" id="/clientDetails.html">
       <div class="well">
         <h1>{{ client.lastName }} {{ client.name }}</h1>
 
-      Data urodzenia: <strong>{{client.birthDate | date}}</strong><br><br>
-      Adres: <strong>{{client.address}}</strong><br><br>
-      Telefon: <strong>{{client.phone}}</strong><br><br>
-      Email: <strong>{{client.email}}</strong><br><br>
-      Salon: <strong>{{client.city}}</strong><br><br>
-      Nr karty: <strong>{{client.cardNr}}</strong><br><br>
-      <div ng-if="client.note">Notatka: <strong>{{client.note}}</strong></div><br>
+        Data urodzenia: <strong>{{client.birthDate | date}}</strong><br><br>
+        Adres: <strong>{{client.address}}</strong><br><br>
+        Telefon: <strong>{{client.phone}}</strong><br><br>
+        Email: <strong>{{client.email}}</strong><br><br>
+        Salon: <strong>{{client.city}}</strong><br><br>
+        Nr karty: <strong>{{client.cardNr}}</strong><br><br>
+        <div ng-if="client.note">Notatka: <strong>{{client.note}}</strong></div><br>
 
-      <a href="/" class="btn btn-info">Wróć</a>
+        <a href="/" class="btn btn-info">Wróć</a>
       </div>
     </script>
 
