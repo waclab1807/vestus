@@ -21,9 +21,9 @@ function ensureAuthenticated(req, res, next){
 
 // Register
 router.get('/register', function(req, res){
-	//res.render('error');
+	res.render('error');
 	// enable register page
-	res.render('register');
+	//res.render('register');
 });
 
 // Login
